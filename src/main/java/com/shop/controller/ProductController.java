@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("product")
+
 public class ProductController {
 
     private ProductService service;
@@ -21,6 +22,7 @@ public class ProductController {
     public ProductController(ProductService service) {
         this.service = service;
     }
+
 
 
     @GetMapping("/{id}")
@@ -42,6 +44,7 @@ public class ProductController {
     private ProductDTO update(@RequestBody ProductDTO productDTO){
         Product product= service.update(productDTO);
         return service.map(product);
+
     }
 
 

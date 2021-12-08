@@ -11,7 +11,6 @@ import com.shop.service.ProductService;
 import com.shop.validator.product.create.ProductCreateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,14 +41,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getOne(Long id) {
-
-        Optional<Product> byId= repository.findById(id);
-
+    Optional<Product> byId= repository.findById(id);
         if((byId.isPresent())){
             return byId.get();
         }
         throw  new CategoryNotFoundException("Product with id "+ id +" not found");
-
     }
 
     @Override
@@ -63,7 +59,6 @@ public class ProductServiceImpl implements ProductService {
             throw  new IllegalArgumentException("Id cant be null!");
         }
         Product product = map(productDTO);
-
         return repository.save(product);
     }
 
@@ -82,7 +77,6 @@ public class ProductServiceImpl implements ProductService {
             throw  new IllegalArgumentException("Id cant be null!");
         }
         repository.deleteById(id);
-
     }
 
     @Override
@@ -103,10 +97,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO map(Product product) {
-
     ProductDTO productDTO =  new ProductDTO(product);
-
-        return  productDTO;
+             return  productDTO;
 
     }
 }

@@ -8,6 +8,8 @@ public class LogosApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LogosApplication.class, args);
+
+
     }
 
 }

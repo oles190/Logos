@@ -6,6 +6,7 @@ import com.shop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CategoryController {
 
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<CategoryDTO> getAll() {
         List<Category> categories = categoryService.getAll();
         List<CategoryDTO> categoryDTOS = categories.stream().map(category -> new CategoryDTO(category)).collect(Collectors.toList());
@@ -33,14 +35,16 @@ public class CategoryController {
 
 
     @PostMapping("/create")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public CategoryDTO create(@RequestBody CategoryDTO categoryDTO){
-Category category =categoryService.create(categoryDTO);
-return  categoryService.map(category);
+    Category category =categoryService.create(categoryDTO);
+    return  categoryService.map(category);
 
     }
 
 
     @PostMapping("/update")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public CategoryDTO update(@RequestBody CategoryDTO categoryDTO){
 
         if(categoryDTO.getId()==null){

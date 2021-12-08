@@ -11,7 +11,6 @@ public class ProductHasNameValidator  implements ProductCreateValidator {
     public void validate(Product product) {
 
         if(product.getName()==null || product.getName().isEmpty()){
-
             throw new ProductDontHaveNameException("Cant create product without name! ");
         }
     }

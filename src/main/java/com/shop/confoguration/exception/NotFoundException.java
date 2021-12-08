@@ -1,7 +1,6 @@
 package com.shop.confoguration.exception;
 
-public class NotFoundException extends  RuntimeException
-{
+public class NotFoundException extends  RuntimeException {
 
 
     public NotFoundException(String message) {

@@ -1,10 +1,13 @@
 package com.shop.service.impl;
 
+import com.shop.confoguration.exception.category.CategoryNameCantBeNullException;
 import com.shop.dto.CategoryDTO;
 import com.shop.entity.Category;
 import com.shop.repository.CategoryRepository;
 import com.shop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +27,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category create(CategoryDTO categoryDTO) {
+
+    if(categoryDTO.getName() == null || categoryDTO.getName().isEmpty()){
+        throw  new CategoryNameCantBeNullException("Cant create category without name!");
+    }
         Category category=map(categoryDTO);
-        return categoryRepository.save(category);
+       return categoryRepository.save(category);
 
     }
 
@@ -36,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(CategoryDTO categoryDTO) {
- Category category = map(categoryDTO);
- return categoryRepository.save(category);
+    Category category = map(categoryDTO);
+    return categoryRepository.save(category);
 
 }
 
@@ -72,4 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
    throw  new IllegalArgumentException("Product witch id "+ id + " not found");
 
     }
+
+
+
+
 }

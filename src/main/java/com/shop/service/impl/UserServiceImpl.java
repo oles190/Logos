@@ -1,15 +1,15 @@
 package com.shop.service.impl;
 
-import com.shop.confoguration.exception.user.EmailBusyException;
-import com.shop.confoguration.exception.user.PasswordNotEqualsException;
-import com.shop.confoguration.exception.user.WrongEmailException;
-import com.shop.confoguration.exception.user.WrongPasswordException;
+import com.shop.confoguration.exception.user.*;
 import com.shop.dto.RegistryDTO;
 import com.shop.entity.Role;
 import com.shop.entity.User;
 import com.shop.repository.UserRepository;
 import com.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +67,16 @@ public class UserServiceImpl implements UserService{
         return  user;
     }
     throw  new WrongPasswordException("Password wrong!");
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        // TODO: 17.11.2021 addd
+        User user = (User) principal;
+        String currentUserEmail = user.getEmail();
+        return getByEmail(currentUserEmail);
     }
 
 

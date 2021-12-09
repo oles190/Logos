@@ -4,6 +4,7 @@ package com.shop.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +26,10 @@ public class Product {
 
     @ManyToOne()
     private Category category;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<CartNode> cart;
 
 
 
